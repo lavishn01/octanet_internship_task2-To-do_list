@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background-color: #eff0f098;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #8fb2b4;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: xx-large;
+      /* font-style: oblique; */
+    }
+
+    #todo-list {
+      margin-top: 50px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    .todo-item input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .todo-item .todo-text {
+      flex: 1;
+    }
+    #todo-input{
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    }
+    button{
+      font-family: Georgia, 'Times New Roman', Times, serif; }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>To-Do List</h1>
+    <form id="todo-form">
+      <input type="text" id="todo-input" placeholder="Add a new task!">
+      <button type="submit">Add</button>
+    </form>
+    <ul id="todo-list"></ul>
+  </div>
+
+  <script>
+    const form = document.getElementById('todo-form');
+    const input = document.getElementById('todo-input');
+    const todoList = document.getElementById('todo-list');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const todoText = input.value;
+      if (todoText.trim() !== '') {
+        addTodoItem(todoText);
+        input.value = '';
+      }
+    });
+
+    function addTodoItem(todoText) {
+      const li = document.createElement('li');
+      li.classList.add('todo-item');
+      li.innerHTML = `
+        <input type="checkbox">
+        <span class="todo-text">${todoText}</span>
+        <button class="delete-btn">Delete</button>
+      `;
+
+      const deleteBtn = li.querySelector('.delete-btn');
+      deleteBtn.addEventListener('click', function () {
+        li.remove();
+      });
+
+      todoList.appendChild(li);
+    }
+  </script>
+</body>
+</html>
